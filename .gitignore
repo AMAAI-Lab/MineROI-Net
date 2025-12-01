@@ -1,0 +1,17 @@
+*.csv
+10/
+42/
+321/
+500/
+1234/
+cv1_30/
+cv2_30/
+cv3_30/
+cv1_60/
+cv2_60/
+cv3_60/
+final_split_outputs/TSLANet/seq_30/67/
+final_split_outputs/TSLANet/seq_30/70/
+final_split_outputs/TSLANet/seq_60/21/
+final_split_outputs/TSLANet/seq_60/27/
+country_wise_data/

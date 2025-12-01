@@ -1,0 +1,83 @@
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [2]
+
+  | Name      | Type              | Params | Mode
+--------------------------------------------------------
+0 | model     | TSLANet           | 67.6 K | train
+1 | f1        | MulticlassF1Score | 0      | train
+2 | criterion | CrossEntropyLoss  | 0      | train
+--------------------------------------------------------
+67.6 K    Trainable params
+0         Non-trainable params
+67.6 K    Total params
+0.270     Total estimated model params size (MB)
+53        Modules in train mode
+0         Modules in eval mode
+Epoch 19: 100%|█| 595/595 [00:06<00:00, 96.37it/s, v_num=e1jn, val_loss=3.030, val_acc=0.289, val_f1=0.214, train_loss=0.330, train_acc=0.864, 
+                                                                                                                                               
+`Trainer.fit` stopped: `max_epochs=20` reached.
+Evaluating model on validation set...
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [2]
+Testing DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████| 119/119 [00:00<00:00, 225.40it/s]
+Confusion matrix saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/confusion_matrix.png
+
+Classification Report:
+============================================================
+              precision    recall  f1-score   support
+
+           0       0.66      0.33      0.44      3211
+           1       0.67      0.97      0.79      3982
+           2       0.00      0.00      0.00       412
+
+    accuracy                           0.65      7605
+   macro avg       0.44      0.43      0.41      7605
+weighted avg       0.63      0.65      0.60      7605
+
+Classification report saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/classification_report.json
+Testing DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████| 119/119 [00:00<00:00, 147.24it/s]
+
+Evaluating model on test set...
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [2]
+Testing DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████| 119/119 [00:00<00:00, 224.89it/s]
+Confusion matrix saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/confusion_matrix.png
+
+Classification Report:
+============================================================
+              precision    recall  f1-score   support
+
+           0       0.66      0.33      0.44      3211
+           1       0.67      0.97      0.79      3982
+           2       0.00      0.00      0.00       412
+
+    accuracy                           0.65      7605
+   macro avg       0.44      0.43      0.41      7605
+weighted avg       0.63      0.65      0.60      7605
+
+Classification report saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/classification_report.json
+Testing DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████| 119/119 [00:00<00:00, 153.13it/s]
+
+✓ Best model metrics logged to WandB
+Loss plot saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/training_loss.png
+Accuracy plot saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/training_accuracy.png
+F1 plot saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/training_f1.png
+
+All training plots saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10
+
+Training completed! Best model saved at: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10/epoch=3-step=2380.ckpt
+
+================================================================================
+EXPERIMENT SUMMARY
+================================================================================
+Timestamp: 2025-12-02 00:36:38
+Dataset:
+Model Configuration: dim=32, depth=4
+Components: ASB=True, ICB=True, AF=True
+Pretraining: False
+--------------------------------------------------------------------------------
+FINAL RESULTS:
+Test Accuracy:  0.6455
+Val Accuracy:   0.6455
+Test F1 Score:  0.4103
+Val F1 Score:   0.4103
+================================================================================
+All results saved to: /root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_33_10
+================================================================================

@@ -1,0 +1,46 @@
+{
+  "experiment_info": {
+    "timestamp": "2025-12-02 00:55:02",
+    "dataset": "",
+    "model_id": "seq30_seed42_emb32_d4",
+    "run_description": "_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_00_50_33"
+  },
+  "model_parameters": {
+    "emb_dim": 32,
+    "depth": 4,
+    "patch_size": 8,
+    "dropout_rate": 0.1,
+    "masking_ratio": 0.4,
+    "ICB": true,
+    "ASB": true,
+    "adaptive_filter": true,
+    "load_from_pretrained": false
+  },
+  "training_parameters": {
+    "num_epochs": 20,
+    "pretrain_epochs": 5,
+    "batch_size": 64,
+    "train_lr": 1e-05,
+    "pretrain_lr": 0.001
+  },
+  "dataset_info": {
+    "num_classes": 3,
+    "seq_len": 30,
+    "num_channels": 14,
+    "class_names": [
+      "0",
+      "1",
+      "2"
+    ]
+  },
+  "results": {
+    "accuracy": {
+      "test": 0.786034255599473,
+      "val": 0.786034255599473
+    },
+    "f1_score": {
+      "test": 0.7711052048788688,
+      "val": 0.7711052048788688
+    }
+  }
+}
