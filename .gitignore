@@ -16,3 +16,4 @@ final_split_outputs/TSLANet/seq_60/21/
 final_split_outputs/TSLANet/seq_60/27/
 country_wise_data/
 data_collection/test.ipynb
+data_collection/download_asic_price_data.py
