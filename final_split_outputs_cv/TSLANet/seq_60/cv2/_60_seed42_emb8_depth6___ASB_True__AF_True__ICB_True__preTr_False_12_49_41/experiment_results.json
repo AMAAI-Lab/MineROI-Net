@@ -1,0 +1,46 @@
+{
+  "experiment_info": {
+    "timestamp": "2025-12-02 12:54:00",
+    "dataset": "",
+    "model_id": "seq60_seed42_emb8_d6",
+    "run_description": "_60_seed42_emb8_depth6___ASB_True__AF_True__ICB_True__preTr_False_12_49_41"
+  },
+  "model_parameters": {
+    "emb_dim": 8,
+    "depth": 6,
+    "patch_size": 8,
+    "dropout_rate": 0.3,
+    "masking_ratio": 0.4,
+    "ICB": true,
+    "ASB": true,
+    "adaptive_filter": true,
+    "load_from_pretrained": false
+  },
+  "training_parameters": {
+    "num_epochs": 20,
+    "pretrain_epochs": 5,
+    "batch_size": 64,
+    "train_lr": 5e-05,
+    "pretrain_lr": 0.001
+  },
+  "dataset_info": {
+    "num_classes": 3,
+    "seq_len": 60,
+    "num_channels": 14,
+    "class_names": [
+      "0",
+      "1",
+      "2"
+    ]
+  },
+  "results": {
+    "accuracy": {
+      "test": 0.4703509479628883,
+      "val": 0.4703509479628883
+    },
+    "f1_score": {
+      "test": 0.43781356806413024,
+      "val": 0.43781356806413024
+    }
+  }
+}

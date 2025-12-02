@@ -1,0 +1,128 @@
+_wandb:
+    value:
+        cli_version: 0.22.1
+        e:
+            u1pa39xlexh8psjczralcg1vqhmh2u3k:
+                args:
+                    - --data_path
+                    - /root/Mine_ROI_Net/country_wise_data/seq_30_cv/cv1/
+                    - --cv_split
+                    - cv1
+                    - --emb_dim
+                    - "32"
+                    - --depth
+                    - "4"
+                    - --weight_decay
+                    - "0.00001"
+                    - --model_id
+                    - seq30_seed42_emb32_d4
+                    - --load_from_pretrained
+                    - "False"
+                    - --num_epochs
+                    - "20"
+                    - --pretrain_epochs
+                    - "5"
+                    - --dropout_rate
+                    - "0.1"
+                    - --train_lr
+                    - "0.00001"
+                    - --batch_size
+                    - "64"
+                    - --patch_size
+                    - "8"
+                    - --seed
+                    - "42"
+                    - --seq_len
+                    - "30"
+                codePath: final_split_cv/TSLANet_classification.py
+                codePathLocal: TSLANet_classification.py
+                cpu_count: 128
+                cpu_count_logical: 256
+                cudaVersion: "12.6"
+                disk:
+                    /:
+                        total: "3449055584256"
+                        used: "2827327242240"
+                email: sithumi_wickramasinghe@mymail.sutd.edu.sg
+                executable: /root/miniconda/envs/tslanet/bin/python
+                git:
+                    commit: 6e4946e92ccbec89535c7da5f9a8ef660eda0aa9
+                    remote: https://github.com/AMAAI-Lab/MineROI-Net.git
+                gpu: NVIDIA L40S
+                gpu_count: 6
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 18176
+                      memoryTotal: "48305799168"
+                      name: NVIDIA L40S
+                      uuid: GPU-933c0317-8d6b-a889-a37d-401613b3aa1b
+                    - architecture: Ada
+                      cudaCores: 18176
+                      memoryTotal: "48305799168"
+                      name: NVIDIA L40S
+                      uuid: GPU-13c5542e-629f-b524-99da-2bc4ad0c99d0
+                    - architecture: Ada
+                      cudaCores: 18176
+                      memoryTotal: "48305799168"
+                      name: NVIDIA L40S
+                      uuid: GPU-a90305e7-4a1f-6c14-2c85-c66bfe151a36
+                    - architecture: Ada
+                      cudaCores: 18176
+                      memoryTotal: "48305799168"
+                      name: NVIDIA L40S
+                      uuid: GPU-a15cb3c9-5307-04d4-2fa7-d0a088c9bb52
+                    - architecture: Ada
+                      cudaCores: 18176
+                      memoryTotal: "48305799168"
+                      name: NVIDIA L40S
+                      uuid: GPU-cdbb9188-39bd-49e6-9f47-d21de2b33bf6
+                    - architecture: Ada
+                      cudaCores: 18176
+                      memoryTotal: "48305799168"
+                      name: NVIDIA L40S
+                      uuid: GPU-e12a1c20-9426-d145-5c89-41c98ac4520b
+                host: 745bb97695ce
+                memory:
+                    total: "405355331584"
+                os: Linux-6.8.0-48-generic-x86_64-with-glibc2.39
+                program: /root/Mine_ROI_Net/final_split_cv/TSLANet_classification.py
+                python: CPython 3.10.18
+                root: /root/Mine_ROI_Net/final_split_outputs_cv/TSLANet/seq_30/cv1/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_11_53_54
+                startedAt: "2025-12-02T03:53:56.928566Z"
+                writerId: u1pa39xlexh8psjczralcg1vqhmh2u3k
+        m:
+            - "1": trainer/global_step
+              "6":
+                - 3
+              "7": []
+            - "2": '*'
+              "5": 1
+              "6":
+                - 1
+              "7": []
+        python_version: 3.10.18
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 49
+                - 53
+                - 63
+                - 106
+            "2":
+                - 1
+                - 5
+                - 41
+                - 49
+                - 53
+                - 63
+                - 106
+            "3":
+                - 7
+                - 13
+                - 66
+            "4": 3.10.18
+            "5": 0.22.1
+            "12": 0.22.1
+            "13": linux-x86_64

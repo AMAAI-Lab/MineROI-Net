@@ -1,0 +1,107 @@
+{
+  "os":  "Linux-6.8.0-48-generic-x86_64-with-glibc2.39",
+  "python":  "CPython 3.10.18",
+  "startedAt":  "2025-12-02T04:39:45.881665Z",
+  "args":  [
+    "--data_path",
+    "/root/Mine_ROI_Net/country_wise_data/seq_30_cv/cv2/",
+    "--cv_split",
+    "cv2",
+    "--emb_dim",
+    "32",
+    "--depth",
+    "4",
+    "--weight_decay",
+    "0.00001",
+    "--model_id",
+    "seq30_seed42_emb32_d4",
+    "--load_from_pretrained",
+    "False",
+    "--num_epochs",
+    "20",
+    "--pretrain_epochs",
+    "5",
+    "--dropout_rate",
+    "0.1",
+    "--train_lr",
+    "0.00001",
+    "--batch_size",
+    "64",
+    "--patch_size",
+    "8",
+    "--seed",
+    "42",
+    "--seq_len",
+    "30"
+  ],
+  "program":  "/root/Mine_ROI_Net/final_split_cv/TSLANet_classification.py",
+  "codePath":  "final_split_cv/TSLANet_classification.py",
+  "codePathLocal":  "TSLANet_classification.py",
+  "git":  {
+    "remote":  "https://github.com/AMAAI-Lab/MineROI-Net.git",
+    "commit":  "6e4946e92ccbec89535c7da5f9a8ef660eda0aa9"
+  },
+  "email":  "sithumi_wickramasinghe@mymail.sutd.edu.sg",
+  "root":  "/root/Mine_ROI_Net/final_split_outputs_cv/TSLANet/seq_30/cv2/_30_seed42_emb32_depth4___ASB_True__AF_True__ICB_True__preTr_False_12_39_44",
+  "host":  "745bb97695ce",
+  "executable":  "/root/miniconda/envs/tslanet/bin/python",
+  "cpu_count":  128,
+  "cpu_count_logical":  256,
+  "gpu":  "NVIDIA L40S",
+  "gpu_count":  6,
+  "disk":  {
+    "/":  {
+      "total":  "3449055584256",
+      "used":  "2827341193216"
+    }
+  },
+  "memory":  {
+    "total":  "405355331584"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-933c0317-8d6b-a889-a37d-401613b3aa1b"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-13c5542e-629f-b524-99da-2bc4ad0c99d0"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-a90305e7-4a1f-6c14-2c85-c66bfe151a36"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-a15cb3c9-5307-04d4-2fa7-d0a088c9bb52"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-cdbb9188-39bd-49e6-9f47-d21de2b33bf6"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-e12a1c20-9426-d145-5c89-41c98ac4520b"
+    }
+  ],
+  "cudaVersion":  "12.6",
+  "writerId":  "zboft3x8id7yc0fb9t8azj95iozq94zx"
+}
