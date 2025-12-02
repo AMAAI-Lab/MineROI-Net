@@ -39,8 +39,8 @@ def set_seed(seed=42):
 # =====================================================================
 # Config
 # =====================================================================
-SAVE_DIR = f"/root/MineROI-Net/country_wise_data/seq_{SEQ_LEN}_cv/{CV_SPLIT}"
-OUT_DIR = f"/root/MineROI-Net/final_split_outputs_cv/MineROI-Net/seq_{SEQ_LEN}/{CV_SPLIT}"
+SAVE_DIR = f"/root/Mine_ROI_Net/country_wise_data/seq_{SEQ_LEN}_cv/{CV_SPLIT}"
+OUT_DIR = f"/root/Mine_ROI_Net/final_split_outputs_cv/Mine_ROI_Net/seq_{SEQ_LEN}/{CV_SPLIT}"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 NUM_CLASSES = 3

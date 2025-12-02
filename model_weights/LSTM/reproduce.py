@@ -12,10 +12,10 @@ SEQ_LEN = 30
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Preprocessed data for a given split (e.g., cv1)
-DATA_DIR = "/root/MineROI-Net/country_wise_data/seq_60_cv/cv1/"
+DATA_DIR = "/root/Mine_ROI_Net/country_wise_data/seq_60_cv/cv1/"
 
 # Path to the trained weights you want to evaluate
-CKPT_PATH = "/root/MineROI-Net/model_weights/LSTM/seq_60_cv1.pth"
+CKPT_PATH = "/root/Mine_ROI_Net/model_weights/LSTM/seq_60_cv1.pth"
 
 NUM_CLASSES = 3
 

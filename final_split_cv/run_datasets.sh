@@ -26,7 +26,7 @@ for cv_split in "${cv_splits[@]}"; do
   # Process ONE sequence length at a time
   for config in "${configs[@]}"; do
     IFS=':' read -r seq_len emb depth lr dr wd patch <<< "$config"
-    datapath="/root/MineROI-Net/country_wise_data/seq_${seq_len}_cv/${cv_split}/"
+    datapath="/root/Mine_ROI_Net/country_wise_data/seq_${seq_len}_cv/${cv_split}/"
     
     echo ""
     echo ">>> PROCESSING: SEQ_LEN=$seq_len | CV_SPLIT=$cv_split"

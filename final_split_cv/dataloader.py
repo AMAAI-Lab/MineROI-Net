@@ -11,9 +11,9 @@ def prepare_cv_datasets(SEQ_LEN=30):
     
     # Define datasets
     datasets = [
-        {"name": "texas", "path": "/root/MineROI-Net/country_wise_data/final_texas.csv"},
-        {"name": "china", "path": "/root/MineROI-Net/country_wise_data/final_china.csv"},
-        {"name": "ethiopia", "path": "/root/MineROI-Net/country_wise_data/final_ethiopia.csv"}
+        {"name": "texas", "path": "/root/Mine_ROI_Net/country_wise_data/final_texas.csv"},
+        {"name": "china", "path": "/root/Mine_ROI_Net/country_wise_data/final_china.csv"},
+        {"name": "ethiopia", "path": "/root/Mine_ROI_Net/country_wise_data/final_ethiopia.csv"}
     ]
     
     # Define CV splits
@@ -67,7 +67,7 @@ def prepare_cv_datasets(SEQ_LEN=30):
         # Process each CV split
         for cv_name, splits in cv_splits.items():
             print(f"\n  Processing {cv_name}...")
-            SAVE_DIR = f"/root/MineROI-Net/country_wise_data/{dataset['name']}/{cv_name}"
+            SAVE_DIR = f"/root/Mine_ROI_Net/country_wise_data/{dataset['name']}/{cv_name}"
             os.makedirs(SAVE_DIR, exist_ok=True)
             
             # Time-based split
@@ -139,8 +139,8 @@ def combine_cv_datasets(SEQ_LEN=30):
     countries = ["china", "ethiopia", "texas"]
     cv_folds = ["cv1", "cv2", "cv3"]
     
-    BASE_DIR = "/root/MineROI-Net/country_wise_data/"
-    SAVE_DIR = f"/root/MineROI-Net/country_wise_data/seq_{SEQ_LEN}_cv"
+    BASE_DIR = "/root/Mine_ROI_Net/country_wise_data/"
+    SAVE_DIR = f"/root/Mine_ROI_Net/country_wise_data/seq_{SEQ_LEN}_cv"
     os.makedirs(SAVE_DIR, exist_ok=True)
     
     def load_split(country, cv, split):
@@ -203,7 +203,7 @@ def convert_to_trans_format(SEQ_LEN=30):
     
     cv_folds = ["cv1", "cv2", "cv3"]
     splits = ["train", "val", "test"]
-    BASE_DIR = f"/root/MineROI-Net/country_wise_data/seq_{SEQ_LEN}_cv"
+    BASE_DIR = f"/root/Mine_ROI_Net/country_wise_data/seq_{SEQ_LEN}_cv"
     
     for cv in cv_folds:
         print(f"\n{'='*70}")

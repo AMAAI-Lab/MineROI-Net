@@ -29,18 +29,18 @@ def prepare_datasets(SEQ_LEN=30):
     datasets = [
         { 
             "name": "texas",
-            "data_path": "/root/MineROI-Net/country_wise_data/final_texas.csv",
-            "save_dir": "/root/MineROI-Net/country_wise_data/texas_seq"
+            "data_path": "/root/Mine_ROI_Net/country_wise_data/final_texas.csv",
+            "save_dir": "/root/Mine_ROI_Net/country_wise_data/texas_seq"
         },
         {
             "name": "china",
-            "data_path": "/root/MineROI-Net/country_wise_data/final_china.csv",
-            "save_dir": "/root/MineROI-Net/country_wise_data/china_seq"
+            "data_path": "/root/Mine_ROI_Net/country_wise_data/final_china.csv",
+            "save_dir": "/root/Mine_ROI_Net/country_wise_data/china_seq"
         },
         {
             "name": "ethiopia",
-            "data_path": "/root/MineROI-Net/country_wise_data/final_ethiopia.csv",
-            "save_dir": "/root/MineROI-Net/country_wise_data/ethiopia_seq"
+            "data_path": "/root/Mine_ROI_Net/country_wise_data/final_ethiopia.csv",
+            "save_dir": "/root/Mine_ROI_Net/country_wise_data/ethiopia_seq"
         }
     ]
     
@@ -183,17 +183,17 @@ def combine_datasets(SEQ_LEN=30):
         SEQ_LEN (int): Length of the time-series window; determines output directory.
 
     Outputs:
-        Saves three files in /root/MineROI-Net/country_wise_data/seq_<SEQ_LEN>/ :
+        Saves three files in /root/Mine_ROI_Net/country_wise_data/seq_<SEQ_LEN>/ :
             - train.pt
             - val.pt
             - test.pt"""
     
     countries = ["china", "ethiopia", "texas"]
-    SAVE_DIR = f"/root/MineROI-Net/country_wise_data/seq_{SEQ_LEN}"
+    SAVE_DIR = f"/root/Mine_ROI_Net/country_wise_data/seq_{SEQ_LEN}"
     os.makedirs(SAVE_DIR, exist_ok=True)
     
     def load_split(country, split):
-        path = f"/root/MineROI-Net/country_wise_data/{country}_seq/{split}.pt"
+        path = f"/root/Mine_ROI_Net/country_wise_data/{country}_seq/{split}.pt"
         if os.path.exists(path):
             print(f"Loading {path} ...")
             return torch.load(path, weights_only=False)
@@ -263,7 +263,7 @@ def convert_to_trans_format(SEQ_LEN=30):
     Args:
         SEQ_LEN (int): Window length; determines which folder to load from."""
     
-    BASE_DIR = f"/root/MineROI-Net/country_wise_data/seq_{SEQ_LEN}"
+    BASE_DIR = f"/root/Mine_ROI_Net/country_wise_data/seq_{SEQ_LEN}"
     files = ["train", "val", "test"]
     
     for fname in files:

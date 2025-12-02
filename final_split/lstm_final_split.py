@@ -38,8 +38,8 @@ def set_seed(seed=42):
 # =====================================================================
 # Config
 # =====================================================================
-SAVE_DIR = f"/root/MineROI-Net/country_wise_data/seq_{SEQ_LEN}"
-OUT_DIR = f"/root/MineROI-Net/final_split_outputs/LSTM/seq_{SEQ_LEN}"
+SAVE_DIR = f"/root/Mine_ROI_Net/country_wise_data/seq_{SEQ_LEN}"
+OUT_DIR = f"/root/Mine_ROI_Net/final_split_outputs/LSTM/seq_{SEQ_LEN}"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 NUM_CLASSES = 3

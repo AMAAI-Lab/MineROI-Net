@@ -1,0 +1,26 @@
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_setup.py:_flush():81] Current SDK version is 0.22.1
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_setup.py:_flush():81] Configure stats pid to 2754092
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_setup.py:_flush():81] Loading settings from /root/.config/wandb/settings
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_setup.py:_flush():81] Loading settings from /root/Mine_ROI_Net/final_split/wandb/settings
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_init.py:setup_run_log_directory():705] Logging user logs to ./30_reproduce_seed/wandb/run-20251202_091047-3qvuqs00/logs/debug.log
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_init.py:setup_run_log_directory():706] Logging internal logs to ./30_reproduce_seed/wandb/run-20251202_091047-3qvuqs00/logs/debug-internal.log
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_init.py:init():832] calling init triggers
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_init.py:init():837] wandb.init called with sweep_config: {}
+config: {'batch_size': 64, 'lr': 0.0001, 'd_model': 64, 'nhead': 2, 'num_layers': 2, 'dim_feedforward': 256, 'dropout': 0.2, 'wd': 1e-05, 'epochs': 20, 'weight_decay': 1e-05, 'num_classes': 3, '_wandb': {}}
+2025-12-02 09:10:47,217 INFO    MainThread:2754092 [wandb_init.py:init():880] starting backend
+2025-12-02 09:10:47,424 INFO    MainThread:2754092 [wandb_init.py:init():883] sending inform_init request
+2025-12-02 09:10:47,428 INFO    MainThread:2754092 [wandb_init.py:init():891] backend started and connected
+2025-12-02 09:10:47,430 INFO    MainThread:2754092 [wandb_init.py:init():961] updated telemetry
+2025-12-02 09:10:47,435 INFO    MainThread:2754092 [wandb_init.py:init():985] communicating run to backend with 90.0 second timeout
+2025-12-02 09:10:48,245 INFO    MainThread:2754092 [wandb_init.py:init():1036] starting run threads in backend
+2025-12-02 09:10:48,339 INFO    MainThread:2754092 [wandb_run.py:_console_start():2506] atexit reg
+2025-12-02 09:10:48,339 INFO    MainThread:2754092 [wandb_run.py:_redirect():2354] redirect: wrap_raw
+2025-12-02 09:10:48,339 INFO    MainThread:2754092 [wandb_run.py:_redirect():2423] Wrapping output streams.
+2025-12-02 09:10:48,339 INFO    MainThread:2754092 [wandb_run.py:_redirect():2446] Redirects installed.
+2025-12-02 09:10:48,342 INFO    MainThread:2754092 [wandb_init.py:init():1076] run started, returning control to user process
+2025-12-02 09:12:44,647 INFO    MainThread:2754092 [wandb_run.py:_finish():2272] finishing run sithumi_wickramasinghe-singapore-university-of-technolog/transformer_30_reproduce_seed/3qvuqs00
+2025-12-02 09:12:44,648 INFO    MainThread:2754092 [wandb_run.py:_atexit_cleanup():2471] got exitcode: 0
+2025-12-02 09:12:44,648 INFO    MainThread:2754092 [wandb_run.py:_restore():2453] restore
+2025-12-02 09:12:44,648 INFO    MainThread:2754092 [wandb_run.py:_restore():2459] restore done
+2025-12-02 09:12:46,889 INFO    MainThread:2754092 [wandb_run.py:_footer_sync_info():3869] logging synced files

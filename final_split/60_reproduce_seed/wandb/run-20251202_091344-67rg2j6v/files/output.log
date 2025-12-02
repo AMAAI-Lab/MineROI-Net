@@ -1,0 +1,6 @@
+Epoch 5/20 | train_loss 0.8390 | test_loss 0.9782 | test_acc 0.5484
+Epoch 10/20 | train_loss 0.6813 | test_loss 0.7749 | test_acc 0.7916
+Epoch 15/20 | train_loss 0.6532 | test_loss 0.7849 | test_acc 0.8106
+Epoch 20/20 | train_loss 0.6469 | test_loss 0.8027 | test_acc 0.8078
+Model saved at final epoch 20 with train_loss=0.6469
+Test AUC: 0.8953

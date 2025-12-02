@@ -752,7 +752,7 @@ if __name__ == '__main__':
     print(f"\nExperiment: {run_description}")
     print(f"Dataset: {DATASET_PATH}")
 
-    CHECKPOINT_PATH = f"/root/MineROI-Net/final_split_outputs_cv/TSLANet/seq_{SEQ_LEN}/{cv_split}/{run_description}"
+    CHECKPOINT_PATH = f"/root/Mine_ROI_Net/final_split_outputs_cv/TSLANet/seq_{SEQ_LEN}/{cv_split}/{run_description}"
     Path(CHECKPOINT_PATH).mkdir(parents=True, exist_ok=True)
     
     pretrain_checkpoint_callback = ModelCheckpoint(

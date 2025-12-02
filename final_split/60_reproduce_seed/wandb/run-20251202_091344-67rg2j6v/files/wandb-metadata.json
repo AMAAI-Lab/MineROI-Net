@@ -1,0 +1,75 @@
+{
+  "os":  "Linux-6.8.0-48-generic-x86_64-with-glibc2.39",
+  "python":  "CPython 3.10.18",
+  "startedAt":  "2025-12-02T01:13:44.154053Z",
+  "program":  "/root/Mine_ROI_Net/final_split/transformer_final_split.py",
+  "codePath":  "final_split/transformer_final_split.py",
+  "codePathLocal":  "transformer_final_split.py",
+  "git":  {
+    "remote":  "https://github.com/AMAAI-Lab/MineROI-Net.git",
+    "commit":  "9a0e90c9086d29f310a671d75a31e45422d3b48f"
+  },
+  "email":  "sithumi_wickramasinghe@mymail.sutd.edu.sg",
+  "root":  "./60_reproduce_seed",
+  "host":  "745bb97695ce",
+  "executable":  "/root/miniconda/envs/tslanet/bin/python",
+  "cpu_count":  128,
+  "cpu_count_logical":  256,
+  "gpu":  "NVIDIA L40S",
+  "gpu_count":  6,
+  "disk":  {
+    "/":  {
+      "total":  "3449055584256",
+      "used":  "2825283842048"
+    }
+  },
+  "memory":  {
+    "total":  "405355331584"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-933c0317-8d6b-a889-a37d-401613b3aa1b"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-13c5542e-629f-b524-99da-2bc4ad0c99d0"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-a90305e7-4a1f-6c14-2c85-c66bfe151a36"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-a15cb3c9-5307-04d4-2fa7-d0a088c9bb52"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-cdbb9188-39bd-49e6-9f47-d21de2b33bf6"
+    },
+    {
+      "name":  "NVIDIA L40S",
+      "memoryTotal":  "48305799168",
+      "cudaCores":  18176,
+      "architecture":  "Ada",
+      "uuid":  "GPU-e12a1c20-9426-d145-5c89-41c98ac4520b"
+    }
+  ],
+  "cudaVersion":  "12.6",
+  "writerId":  "cpq01q29b10oq5hh8psmmogqncb5ieof"
+}
