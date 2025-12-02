@@ -4,7 +4,7 @@ This repository contains the code and dataset accompanying the paper "Smart Timi
 Framework for Bitcoin Hardware ROI prediction" by Sithumi Wickramasinghe (PhD candidate), Prof. Bikramjith Das, and Prof. Dorien Herremans.
 
 <div align="center">
-  <img src="archi.png" alt="MineROI-Net Architecture" width="800"/>
+  <img src="MineROI-Net.png" alt="MineROI-Net Architecture" width="800"/>
 </div>
 
 We propose MineROI-Net a Transformer-based architecture for **timing Bitcoin mining hardware purchases**.  
