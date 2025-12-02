@@ -703,7 +703,7 @@ def train_model(pretrained_model_path):
         print("\n✓ Best model metrics logged to WandB")
 
     # Save training progress plots
-    save_training_plots(train_metrics, CHECKPOINT_PATH)
+    # save_training_plots(train_metrics, CHECKPOINT_PATH)
     print(f"\nTraining completed! Best model saved at: {trainer.checkpoint_callback.best_model_path}")
     return model, acc_result, f1_result
 
