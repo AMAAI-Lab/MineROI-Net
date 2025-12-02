@@ -20,7 +20,7 @@ from sklearn.preprocessing import label_binarize
 # Run the preprocessing dataloader to prepare data
 # =======================
 CV_SPLIT = "cv3"  # Change as needed: cv1, cv2, cv3
-SEQ_LEN = 60
+SEQ_LEN = 30
 dataloader.run_all_cv_preprocessing(SEQ_LEN)
 
 # =======================
@@ -434,13 +434,13 @@ for SEED in SEEDS:
     classes_sorted = list(np.unique(np.concatenate([yv, yt])))
 
     # Save curves figure
-    curves_png = os.path.join(OUT_DIR, f"{run_name}_curves.png")
-    plot_curves(train_losses, val_losses, train_accs, val_accs, title_prefix=run_name, out_png=curves_png)
+    # curves_png = os.path.join(OUT_DIR, f"{run_name}_curves.png")
+    # plot_curves(train_losses, val_losses, train_accs, val_accs, title_prefix=run_name, out_png=curves_png)
 
     # Save & log confusion matrices as images
     def save_cm(cm, title, out_png, class_names):
         fig, ax = plt.subplots(figsize=(6,5))
-        im = ax.imshow(cm, interpolation='nearest')
+        im = ax.imshow(cm, interpolation='nearest', cmap='Blues')
         plt.title(title); plt.xlabel("Predicted"); plt.ylabel("True")
         tick_marks = np.arange(len(class_names))
         ax.set_xticks(tick_marks); ax.set_xticklabels(class_names)
@@ -467,7 +467,7 @@ for SEED in SEEDS:
         "final/val/acc":  val_acc_final,
         "final/val/f1":   val_f1_final,
         "final/val/auc":  val_auc,
-        "plots/curves":    wandb.Image(curves_png),
+        # "plots/curves":    wandb.Image(curves_png),
         "plots/cm_val":   wandb.Image(cm_val_png),
         "plots/roc_val": wandb.Image(roc_val_png),
     })
@@ -493,11 +493,11 @@ for SEED in SEEDS:
 
 results_df = pd.DataFrame(results).sort_values('val_f1', ascending=False)
 
-print("\n" + "="*80)
-print("HYPERPARAMETER TUNING RESULTS (Top 10 by val_f1)")
+# print("\n" + "="*80)
+# print("HYPERPARAMETER TUNING RESULTS (Top 10 by val_f1)")
 
-print("="*80)
-print(results_df.head(10).to_string(index=False))
+# print("="*80)
+# print(results_df.head(10).to_string(index=False))
 results_df.to_csv(f"{OUT_DIR}/hyperparameter_results.csv", index=False)
 print(f"\nFull results saved to {OUT_DIR}/hyperparameter_results.csv")
 
