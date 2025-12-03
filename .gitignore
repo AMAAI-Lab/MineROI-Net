@@ -25,3 +25,10 @@ model_weights/MineROI-NET/seq_60_cv2.pth
 model_weights/MineROI-NET/seq_60_cv3.pth
 final_split_cv/
 final_split_outputs_cv/
+models/LSTM/__pycache__
+models/LSTM/30_reproduce
+models/LSTM/60_reproduce
+models/MineROI-NET/__pycache__
+models/MineROI-NET/30_reproduce_seed
+models/MineROI-NET/60_reproduce_seed
+models/TSLANet/__pycache__
