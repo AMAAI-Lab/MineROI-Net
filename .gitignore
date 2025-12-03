@@ -23,3 +23,4 @@ model_weights/MineROI-NET/seq_30_cv3.pth
 model_weights/MineROI-NET/seq_60_cv1.pth
 model_weights/MineROI-NET/seq_60_cv2.pth
 model_weights/MineROI-NET/seq_60_cv3.pth
+final_split_cv/
