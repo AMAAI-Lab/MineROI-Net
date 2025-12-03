@@ -131,26 +131,26 @@ def calculate_miner_prices(price_df):
     
     # Define miner specifications: (hashrate in TH/s, efficiency category column)
     machine_info = {
-        's9':       (13.5,  'above68'),    # efficiency = 98 W/TH
-        's19pro':   (110,   '25to38'),     # efficiency = 30 W/TH
-        's15':      (28,    '38to68'),     # efficiency = 57 W/TH
-        's17pro':   (50,    '38to68'),     # efficiency = 40 W/TH
-        'M32':      (62,    '38to68'),     # efficiency = 54 W/TH
-        's7':       (4.73,  'above68'),    # efficiency = 273 W/TH
-        't17':      (40,    '38to68'),     # efficiency = 55 W/TH
-        's19jpro':  (100,   '25to38'),     # efficiency = 30 W/TH
-        'm21s':     (56,    '38to68'),     # efficiency = 60 W/TH
-        'm10s':     (55,    '38to68'),     # efficiency = 64 W/TH
-        's19kpro':  (120,   '19to25'),     # efficiency = 23 W/TH
-        's21':      (200,   'under19'),    # efficiency = 18 W/TH
-        'm30s':     (112,   '25to38'),     # efficiency = 31 W/TH
-        'ka3':      (166,   '19to25'),     # efficiency = 19 W/TH
-        'r4':       (8.7,   'above68'),    # efficiency = 97 W/TH
-        't19':      (88,    '25to38'),     # efficiency = 38 W/TH
-        's19xp':    (141,   '19to25'),     # efficiency = 21 W/TH
-        's19apro':  (104,   '25to38'),     # efficiency = 31 W/TH
-        'm50s':     (136,   '19to25'),     # efficiency = 24 W/TH
-        'm53':      (226,   '25to38')      # efficiency = 29 W/TH
+        's9':       (XX.X,  'above68'),    # efficiency = XX W/TH
+        's19pro':   (XX.X,   'XX'),     # efficiency = XX W/TH
+        's15':      (XX.X,    'XX'),     # efficiency = XX W/TH
+        's17pro':   (XX.X,    'XX'),     # efficiency = XX W/TH
+        'M32':      (XX.X,    'XX'),     # efficiency = XX W/TH
+        's7':       (XX.X,  'XX'),    # efficiency = XX W/TH
+        't17':      (XX.X,    'XX'),     # efficiency = XX W/TH
+        's19jpro':  (XX.X,   'XX'),     # efficiency = XX W/TH
+        'm21s':     (XX.X,    'XX'),     # efficiency = XX W/TH
+        'm10s':     (XX.X,    'XX'),     # efficiency = XX W/TH
+        's19kpro':  (XX.X,   'XX'),     # efficiency = XX W/TH
+        's21':      (XX.X,   'XX'),    # efficiency = XX W/TH
+        'm30s':     (XX.X,   'XX'),     # efficiency = XX W/TH
+        'ka3':      (XX.X,   'XX'),     # efficiency = XX W/TH
+        'r4':       (XX.X,   'XX'),    # efficiency = XX W/TH
+        't19':      (XX.X,    'XX'),     # efficiency = XX W/TH
+        's19xp':    (XX.X,   'XX'),     # efficiency = XX W/TH
+        's19apro':  (XX.X,   'XX'),     # efficiency = XX W/TH
+        'm50s':     (XX.X,   'XX'),     # efficiency = XX W/TH
+        'm53':      (XX.X,   'XX')      # efficiency = XX W/TH
     }
     
     print("\nCalculating individual miner prices...")
