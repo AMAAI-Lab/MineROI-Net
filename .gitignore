@@ -29,3 +29,5 @@ models/
 MineROI-NET/__pycache__
 MineROI-NET/30_reproduce_seed
 MineROI-NET/60_reproduce_seed
+checkpoints/LSTM/
+checkpoints/TSLANet/
