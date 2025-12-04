@@ -48,7 +48,7 @@ for profitable and unprofitable periods).
 
 
 
-# Repository structure
+<!-- # Repository structure
 
 A minimal structure (yours may contain more folders):
 
@@ -74,36 +74,26 @@ MineROI-Net/
 ├── results_seq_30/      # final results when loock back window = 30 
 ├── results_seq_60/      # final results when loock back window = 60 
 └── README.md
-```
+``` -->
 
 
 
+# Data Collection Pipeline
 
+The `data_collection/` folder contains 6 sequential scripts that download, process, and prepare datasets for 20 ASIC mining machines across three regions (Texas, China, Ethiopia).
 
-# Data creation pipeline steps
-The data_collection folder consists of 6 sequential scripts that download, process, and prepare datasets for 20 different ASIC mining machines across three regions (Texas, China, and Ethiopia). 
-> **Note**  
-> Due to data-source restrictions, we do not redistribute raw ASIC pricing data.  
-> Follow the data sources listed in the paper and following scripts to reconstruct the dataset, or plug in your own mining data.
+> **Note:** Due to data-source restrictions, we do not redistribute raw ASIC pricing data. Follow the data sources in Section 4.1 of the paper and these scripts to reconstruct the dataset.
+
+---
+
+## Pipeline Steps
 
 ### Step 1: Download Blockchain Data
 **Script:** `1_download_blockchain_data.py`
 
-Downloads historical Bitcoin blockchain data from blockchain.info API.
-**Data collected:**
-- Bitcoin price (USD)
-- Network difficulty
-- Transaction fees (BTC)
-- Network hashrate (TH/s)
-- Miners revenue (USD)
+Downloads Bitcoin price, network difficulty, transaction fees, hashrate, and miners revenue from blockchain.info API.
 
-**Date range:** January 17, 2009 to September 23, 2025
-
-<!-- **Usage:**
-```bash
-python 1_download_blockchain_data.py --output blockchain_data.csv
-``` -->
-
+**Date range:** Jan 17, 2009 - Sep 23, 2025  
 **Output:** `blockchain_data.csv`
 
 ---
@@ -111,167 +101,107 @@ python 1_download_blockchain_data.py --output blockchain_data.csv
 ### Step 2: Download ASIC Price Data
 **Script:** `2_download_asic_price_data.py`
 
-Downloads historical ASIC miner prices from Hashrate Index API.
+Downloads historical prices for 20 ASIC miners from Hashrate Index API.
 
-**Miners covered:** 20 ASIC models (S9, S19 Pro, S15, S17 Pro, M32, S7, T17, S19j Pro, M21S, M10S, S19k Pro, S21, M30S, KA3, R4, T19, S19 XP, S19a Pro, M50S, M53)
-
-**Date range:** January 22, 2018 to September 21, 2025
-
-<!-- **Usage:**
-```bash
-python 2_download_asic_price_data.py --api-key YOUR_API_KEY
-``` -->
-
-
-**Output:** 
-- `asic_prices.csv` (complete dataset)
-- `miner_data/` (individual CSVs for each miner)
+**Requires:** API key from [hashrateindex.com/api](https://hashrateindex.com/api)  
+**Date range:** Jan 22, 2018 - Sep 21, 2025  
+**Output:** `asic_prices.csv`, `miner_data/` (individual CSVs)
 
 ---
 
 ### Step 3: Prepare Electricity Data
 **Script:** `3_electricity_data.py`
 
-**Note:** This is a placeholder script. You need to prepare electricity price data for three regions:
+Prepare electricity price data for three regions. See Section 4.1 in paper for data sources.
 
 **Required files:**
 - `texas_residential_daily_df.csv`
 - `china_electricity_prices_daily.csv`
 - `ethiopia_electricity_prices_daily.csv`
 
-**Format:** Each file should contain:
-- `date` column (YYYY-MM-DD)
-- `price` column (USD per kWh)
-
-**Data source:** See Section 4.1 in the paper. Monthly electricity prices are repeated for each day of the month to create daily time series.
+**Format:** `date` (YYYY-MM-DD) and `price` (USD/kWh) columns
 
 ---
 
 ### Step 4: Prepare Miner Datasets
 **Script:** `4_prepare_miner_dataset.py`
 
-Combines blockchain data with ASIC specifications and calculates features for all 20 miners.
+Combines blockchain data with ASIC specifications for all 20 miners.
 
-**What it does:**
-- Loads blockchain data and miner price data
-- Adds machine specifications (hashrate, power, efficiency, release date)
-- Calculates block rewards based on Bitcoin halving schedule
-- Calculates machine age since release date
-- Calculates days since last Bitcoin halving
-- Filters data to dates after each machine's release
-- Calculates daily revenue potential
+**Calculations:**
+- Machine specifications (hashrate, power, efficiency, release date)
+- Block rewards (Bitcoin halving schedule)
+- Machine age and days since halving
+- Daily revenue potential
 
-<!-- **Usage:**
-```bash
-python 4_prepare_miner_dataset.py
-``` -->
-
-**Output:** `full_feature_data.csv` (combined dataset with all miners and features)
+**Output:** `full_feature_data.csv`
 
 ---
 
 ### Step 5: Calculate ROI by Country
 **Script:** `5_roi_country.py`
 
-Calculates Return on Investment (ROI) for each miner in each region.
+Calculates 12-month forward ROI for each miner in each region.
 
-**What it does:**
-- Merges feature data with electricity prices for each region
-- Calculates 12-month forward ROI for each machine on each date
-
-<!-- **Usage:**
-```bash
-python 5_roi_country.py
-``` -->
-
-**Output:**
-- `roi_texas.csv`
-- `roi_china.csv`
-- `roi_ethiopia.csv`
+**Output:** `roi_texas.csv`, `roi_china.csv`, `roi_ethiopia.csv`
 
 ---
 
 ### Step 6: Create Target Variable
 **Script:** `6_create_target.py`
 
-Performs feature engineering and creates classification target for modeling.
+Engineers time-series features and creates ROI classification target.
 
-  - Category 0: ROI < 0 (Loss)
-  - Category 1: 0 ≤ ROI < 1 (Partial recovery)
-  - Category 2: ROI ≥ 1 (Profitable)
-- Cleans data and removes unnecessary columns
+**ROI Categories:**
+- 0: Unprofitable (ROI < 0)
+- 1: Marginal (0 ≤ ROI < 1)
+- 2: Profitable (ROI ≥ 1)
 
-<!-- **Usage:**
-```bash
-python 6_create_target.py
-``` -->
-
-**Output:**
-- `final_texas.csv`
-- `final_china.csv`
-- `final_ethiopia.csv`
+**Output:** `final_texas.csv`, `final_china.csv`, `final_ethiopia.csv`
 
 ---
 
-## Complete Pipeline Execution
+## Quick Start
 
 Run all steps in sequence:
 ```bash
-# Step 1: Download blockchain data
 python 1_download_blockchain_data.py
-
-# Step 2: Download ASIC prices (requires API key)
 python 2_download_asic_price_data.py --api-key YOUR_API_KEY
-
-# Step 3: Prepare electricity data (manual - see script comments)
 python 3_electricity_data.py
-
-# Step 4: Combine data and prepare miner datasets
 python 4_prepare_miner_dataset.py
-
-# Step 5: Calculate ROI for each region
 python 5_roi_country.py
-
-# Step 6: Create final datasets with targets
 python 6_create_target.py
 ```
 
 ---
 
+## Final Dataset
 
+Each `final_*.csv` contains:
 
-## Final Dataset Features
-
-Each final dataset (`final_*.csv`) contains:
-
-**Features:**
-- `date`: Date
-- `bitcoin_price`: Bitcoin price (USD)
-- `difficulty`: Network difficulty
-- `fees`: Transaction fees (BTC)
-- `hashrate`: Network hashrate (TH/s)
-- `revenue`: Miners revenue (USD)
-- `machine_price`: ASIC miner price (USD)
-- `machine_hashrate`: Miner hashrate (TH/s)
-- `power`: Power consumption (W)
-- `efficiency`: Energy efficiency (W/TH)
-- `block_reward`: Block subsidy (BTC)
-- `age_days`: Days since miner release
-- `days_since_halving`: Days since last Bitcoin halving
-- `Revenue_Potential`: Daily revenue potential (USD)
-- `electricity_rate`: Electricity price (USD/kWh)
-- `machine_name`: Miner model identifier
+**Key Features:**
+- `date`, `bitcoin_price`, `difficulty`, `fees`, `hashrate`, `revenue`
+- `machine_price`, `machine_hashrate`, `power`, `efficiency`
+- `block_reward`, `age_days`, `days_since_halving`
+- `Revenue_Potential`, `electricity_rate`, `machine_name`
 
 **Target:**
-- `roi_category_id`: ROI category (0=Loss, 1=Partial, 2=Profitable)
+- `roi_category_id`: 0 (Unprofitable), 1 (Marginal), 2 (Profitable)
 
 ---
 
 
 
+## Dataset Sample
 
+| date       | bitcoin_price | difficulty        | fees   | hashrate      | revenue      | machine_price | machine_hashrate | power | efficiency | block_reward | age_days | days_since_halving | Revenue_Potential | machine_name | electricity_rate | roi_category_id |
+|------------|----------------|--------------------|--------|----------------|--------------|----------------|-------------------|--------|------------|--------------|----------|---------------------|--------------------|----------------|-------------------|------------------|
+| 2024-09-18 | 60304.22       | 9.27E13            | 7.02   | 6.36E8         | 2.64E7       | 833.94         | 226               | 6554   | 29         | 3.125        | 1265     | 151                 | 9.245              | m53            | 0.0767            | 0                |
+| 2024-09-19 | 61683.91       | 9.27E13            | 9.94   | 5.62E8         | 2.50E7       | 833.94         | 226               | 6554   | 29         | 3.125        | 1266     | 152                 | 9.457              | m53            | 0.0767            | 0                |
+| 2024-09-20 | 62938.20       | 9.27E13            | 9.51   | 6.68E8         | 2.93E7       | 833.94         | 226               | 6554   | 29         | 3.125        | 1267     | 153                 | 9.649              | m53            | 0.0767            | 0                |
+| 2024-09-21 | 63213.19       | 9.27E13            | 6.08   | 6.22E8         | 2.70E7       | 833.94         | 226               | 6554   | 29         | 3.125        | 1268     | 154                 | 9.691              | m53            | 0.0767            | 0                |
 
-
+---
 
 # MineROI-Net Model Training
 
