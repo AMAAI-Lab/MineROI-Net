@@ -31,3 +31,13 @@ MineROI-NET/30_reproduce_seed
 MineROI-NET/60_reproduce_seed
 checkpoints/LSTM/
 checkpoints/TSLANet/
+best_model_weights/LSTM
+best_model_weights/MineROI-NET/seq_30_cv1.pth
+best_model_weights/MineROI-NET/seq_30_cv2.pth
+best_model_weights/MineROI-NET/seq_30_cv3.pth
+best_model_weights/MineROI-NET/seq_60_cv1.pth
+best_model_weights/MineROI-NET/seq_60_cv2.pth
+best_model_weights/MineROI-NET/seq_60_cv3.pth
+best_model_weights/MineROI-NET/seq_30_final_test.pth
+best_model_weights/MineROI-NET/seq_60_final_test.pth
+

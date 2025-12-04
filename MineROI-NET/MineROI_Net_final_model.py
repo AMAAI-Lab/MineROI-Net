@@ -20,7 +20,7 @@ from sklearn.preprocessing import label_binarize
 # Run the preprocessing dataloader to prepare data
 # =======================
 
-SEQ_LEN = 60
+SEQ_LEN = 30
 dataloader.run_all_preprocessing(SEQ_LEN)
 
 

@@ -311,4 +311,4 @@ def run_all_preprocessing(SEQ_LEN=30):
 
 # If running this file directly
 if __name__ == "__main__":
-    run_all_preprocessing(SEQ_LEN=60)
+    run_all_preprocessing(SEQ_LEN=30)
