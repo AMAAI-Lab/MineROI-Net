@@ -76,86 +76,253 @@ MineROI-Net/
 └── README.md
 ```
 
-# Dataset
-
-The dataset integrates three main sources, **(i) ASIC machine data (ii) Blockchain data (iii) Energy prices** (see Section 4.1 of the paper):
 
 
-<!-- Each day is labelled with a **1-year ROI** for a given machine using:
 
-$$
-\text{ROI} = \frac{R(M, d_i, 365) - C_O(M, d_i, 365)}{C_M(M, d_i)}
-$$
 
-and then discretized into **{unprofitable, marginal, profitable}** based on economically meaningful thresholds. -->
-
+# Data creation pipeline steps
+The data_collection folder consists of 6 sequential scripts that download, process, and prepare datasets for 20 different ASIC mining machines across three regions (Texas, China, and Ethiopia). 
 > **Note**  
 > Due to data-source restrictions, we do not redistribute raw ASIC pricing data.  
-> Follow the data sources listed in the paper to reconstruct the dataset, or plug in your own mining data.
+> Follow the data sources listed in the paper and following scripts to reconstruct the dataset, or plug in your own mining data.
 
-Place your processed CSV files in:
+### Step 1: Download Blockchain Data
+**Script:** `1_download_blockchain_data.py`
 
-```text
-MineROI-Net/country_wise_data/
-    final_china.csv
-    final_ethiopia.csv
-    final_texas.csv
+Downloads historical Bitcoin blockchain data from blockchain.info API.
+**Data collected:**
+- Bitcoin price (USD)
+- Network difficulty
+- Transaction fees (BTC)
+- Network hashrate (TH/s)
+- Miners revenue (USD)
+
+**Date range:** January 17, 2009 to September 23, 2025
+
+<!-- **Usage:**
+```bash
+python 1_download_blockchain_data.py --output blockchain_data.csv
+``` -->
+
+**Output:** `blockchain_data.csv`
+
+---
+
+### Step 2: Download ASIC Price Data
+**Script:** `2_download_asic_price_data.py`
+
+Downloads historical ASIC miner prices from Hashrate Index API.
+
+**Miners covered:** 20 ASIC models (S9, S19 Pro, S15, S17 Pro, M32, S7, T17, S19j Pro, M21S, M10S, S19k Pro, S21, M30S, KA3, R4, T19, S19 XP, S19a Pro, M50S, M53)
+
+**Date range:** January 22, 2018 to September 21, 2025
+
+<!-- **Usage:**
+```bash
+python 2_download_asic_price_data.py --api-key YOUR_API_KEY
+``` -->
+
+
+**Output:** 
+- `asic_prices.csv` (complete dataset)
+- `miner_data/` (individual CSVs for each miner)
+
+---
+
+### Step 3: Prepare Electricity Data
+**Script:** `3_electricity_data.py`
+
+**Note:** This is a placeholder script. You need to prepare electricity price data for three regions:
+
+**Required files:**
+- `texas_residential_daily_df.csv`
+- `china_electricity_prices_daily.csv`
+- `ethiopia_electricity_prices_daily.csv`
+
+**Format:** Each file should contain:
+- `date` column (YYYY-MM-DD)
+- `price` column (USD per kWh)
+
+**Data source:** See Section 4.1 in the paper. Monthly electricity prices are repeated for each day of the month to create daily time series.
+
+---
+
+### Step 4: Prepare Miner Datasets
+**Script:** `4_prepare_miner_dataset.py`
+
+Combines blockchain data with ASIC specifications and calculates features for all 20 miners.
+
+**What it does:**
+- Loads blockchain data and miner price data
+- Adds machine specifications (hashrate, power, efficiency, release date)
+- Calculates block rewards based on Bitcoin halving schedule
+- Calculates machine age since release date
+- Calculates days since last Bitcoin halving
+- Filters data to dates after each machine's release
+- Calculates daily revenue potential
+
+<!-- **Usage:**
+```bash
+python 4_prepare_miner_dataset.py
+``` -->
+
+**Output:** `full_feature_data.csv` (combined dataset with all miners and features)
+
+---
+
+### Step 5: Calculate ROI by Country
+**Script:** `5_roi_country.py`
+
+Calculates Return on Investment (ROI) for each miner in each region.
+
+**What it does:**
+- Merges feature data with electricity prices for each region
+- Calculates 12-month forward ROI for each machine on each date
+
+<!-- **Usage:**
+```bash
+python 5_roi_country.py
+``` -->
+
+**Output:**
+- `roi_texas.csv`
+- `roi_china.csv`
+- `roi_ethiopia.csv`
+
+---
+
+### Step 6: Create Target Variable
+**Script:** `6_create_target.py`
+
+Performs feature engineering and creates classification target for modeling.
+
+  - Category 0: ROI < 0 (Loss)
+  - Category 1: 0 ≤ ROI < 1 (Partial recovery)
+  - Category 2: ROI ≥ 1 (Profitable)
+- Cleans data and removes unnecessary columns
+
+<!-- **Usage:**
+```bash
+python 6_create_target.py
+``` -->
+
+**Output:**
+- `final_texas.csv`
+- `final_china.csv`
+- `final_ethiopia.csv`
+
+---
+
+## Complete Pipeline Execution
+
+Run all steps in sequence:
+```bash
+# Step 1: Download blockchain data
+python 1_download_blockchain_data.py
+
+# Step 2: Download ASIC prices (requires API key)
+python 2_download_asic_price_data.py --api-key YOUR_API_KEY
+
+# Step 3: Prepare electricity data (manual - see script comments)
+python 3_electricity_data.py
+
+# Step 4: Combine data and prepare miner datasets
+python 4_prepare_miner_dataset.py
+
+# Step 5: Calculate ROI for each region
+python 5_roi_country.py
+
+# Step 6: Create final datasets with targets
+python 6_create_target.py
 ```
 
-# Preprocessing
+---
 
-All preprocessing for cross-validation and final splits is handled by dataloader.py.
 
-```text
-From the final_split/ directory:
-cd final_split
 
-# For SEQ_LEN = 30 (default in the script)
-python dataloader.py
+## Final Dataset Features
 
-# Or edit the SEQ_LEN argument in the main:
-# if __name__ == "__main__":
-#     run_all_cv_preprocessing(SEQ_LEN=30)
+Each final dataset (`final_*.csv`) contains:
+
+**Features:**
+- `date`: Date
+- `bitcoin_price`: Bitcoin price (USD)
+- `difficulty`: Network difficulty
+- `fees`: Transaction fees (BTC)
+- `hashrate`: Network hashrate (TH/s)
+- `revenue`: Miners revenue (USD)
+- `machine_price`: ASIC miner price (USD)
+- `machine_hashrate`: Miner hashrate (TH/s)
+- `power`: Power consumption (W)
+- `efficiency`: Energy efficiency (W/TH)
+- `block_reward`: Block subsidy (BTC)
+- `age_days`: Days since miner release
+- `days_since_halving`: Days since last Bitcoin halving
+- `Revenue_Potential`: Daily revenue potential (USD)
+- `electricity_rate`: Electricity price (USD/kWh)
+- `machine_name`: Miner model identifier
+
+**Target:**
+- `roi_category_id`: ROI category (0=Loss, 1=Partial, 2=Profitable)
+
+---
+
+
+
+
+
+
+
+# MineROI-Net Model Training
+
+The **models** folder consists of two main components:
+1. **dataloader.py** - Prepares time-series data for model training
+2. **transformer_final_split.py** - Trains and evaluates the transformer model
+
+---
+
+
+## Script: `dataloader.py`
+
+Prepares the final datasets for training by creating time-series windows and splitting data.
+
+```python
+from dataloader import run_all_preprocessing
+
+# Create time-series windows and prepare datasets
+run_all_preprocessing(SEQ_LEN=30)
 ```
 
-This script:
-1. Loads each country’s CSV.
-2. Builds time-series windows with look-back SEQ_LEN (30 or 60 days).
-3. Applies train/val/test splitting using the expanding-window strategy.
-4. Scales features using MinMaxScaler fitted on the training split.
-5. Saves processed tensors (.pt files) for each split and country.
-6. Combines countries and converts to the final LSTM/Transformer-ready format.
+**What it does:**
+- Creates 30-day sliding windows from time-series data
+- Splits data: 80% train, 20% val/test (time-based)
+- Scales features with MinMaxScaler
+- Combines data from all three regions
+- Converts to transformer format `[Batch, Length, Channels]`
+
+**Output:** `seq_30/train_trans.pt`, `val_trans.pt`, `test_trans.pt`
+
+---
 
 
-# Model: MineROI-Net and Training
-
-The main model implementation and training script live in transformer_final_split.py.
-Key components:
-* SpectralFeatureExtractor
-* ChannelMixing
-* Transformer encoder
-* Training loop with weighted cross-entropy + label smoothing
-* Evaluation utilities: accuracy, macro-F1, ROC/AUC, confusion matrices
-
-
-From the final_split/ directory:
-```text
-cd final_split
-
-# Run the main experiment script
+## Script: `transformer_final_split.py`
+```bash
 python transformer_final_split.py
 ```
 
-The script:
-* defines hyperparameter grids for SEQ_LEN=30 or 60
-* runs experiments over all combinations (or a subset, depending on how you configure it)
-* trains MineROI-Net, LSTM-baseline, and/or TSLANet
-* tracks metrics with Weights & Biases (wandb)
-* saves the best model weights and evaluation plots in results_seq_30/ or results_seq_60/.
+**What it does:**
+- Trains transformer classifier on preprocessed data
+- Predicts ROI categories: 0 (Loss), 1 (Partial), 2 (Profitable)
+- Uses early stopping and saves best checkpoint
+- Reports accuracy, precision, recall, F1-score
 
-If you want a lighter run for debugging, edit:
-* the SEEDS list
-* the hyperparameter grid in param_grids
-* number of epochs 
+**Output:** `checkpoints/best_model.pth`
+
+---
+
+
+
+
+
 
 
