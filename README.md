@@ -1,7 +1,8 @@
 # Smart Timing for Mining: A Deep Learning Framework for Bitcoin Hardware ROI prediction
 
-This repository contains the code and dataset accompanying the paper "Smart Timing for Mining: A Deep Learning
-Framework for Bitcoin Hardware ROI prediction" by Sithumi Wickramasinghe (PhD candidate), Prof. Bikramjith Das, and Prof. Dorien Herremans.
+**[Paper](https://arxiv.org/abs/2512.05402)**
+
+This repository contains the code and dataset accompanying the paper **[Smart Timing for Mining: A Deep Learning Framework for Bitcoin Hardware ROI Prediction](https://arxiv.org/abs/2512.05402)** by Sithumi Wickramasinghe (PhD candidate), Prof. Bikramjith Das, and Prof. Dorien Herremans.
 
 <div align="center">
   <img src="MineROI-Net.png" alt="MineROI-Net Architecture" width="800"/>
