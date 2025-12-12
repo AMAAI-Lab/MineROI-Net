@@ -266,6 +266,20 @@ python transformer_final_split.py
 
 ---
 
+# 📄 Citation
+
+If you find this work useful, please cite our paper:
+
+```bash
+@article{wickramasinghe2025smart,
+  title   = {Smart Timing for Mining: A Deep Learning Framework for Bitcoin Hardware ROI Prediction},
+  author  = {Wickramasinghe, Sithumi and Das, Bikramjit and Herremans, Dorien},
+  journal = {arXiv preprint arXiv:2512.05402},
+  year    = {2025},
+  url     = {https://arxiv.org/abs/2512.05402}
+}
+```
+
 
 
 
