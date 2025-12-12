@@ -2,6 +2,21 @@
 
 <!-- **[Paper](https://arxiv.org/abs/2512.05402)** -->
 
+
+<!-- [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Spaces-blue)](https://huggingface.co/spaces/amaai-lab/MineROI-Net)
+[![arXiv](https://img.shields.io/badge/arXiv-2512.05402-b31b1b.svg)](https://arxiv.org/abs/2512.05402) -->
+
+
+<p align="center">
+  <a href="https://huggingface.co/spaces/amaai-lab/MineROI-Net">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Spaces-blue" />
+  </a>
+  <a href="https://arxiv.org/abs/2512.05402">
+    <img src="https://img.shields.io/badge/arXiv-2512.05402-b31b1b.svg" />
+  </a>
+</p>
+
+
 This repository contains the code and dataset accompanying the paper **[Smart Timing for Mining: A Deep Learning Framework for Bitcoin Hardware ROI Prediction](https://arxiv.org/abs/2512.05402)** by Sithumi Wickramasinghe (PhD candidate), Prof. Bikramjith Das, and Prof. Dorien Herremans.
 
 <div align="center">
