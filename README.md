@@ -34,6 +34,8 @@ buying a specific ASIC miner on a given day will be:
 This repository contains the PyTorch implementation, data preprocessing pipeline, and experiments
 used in our paper.
 
+:fire: [Live demo online](https://huggingface.co/spaces/amaai-lab/MineROI-Net)!
+
 ---
 
 # Overview
