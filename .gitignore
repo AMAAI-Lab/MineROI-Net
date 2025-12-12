@@ -40,4 +40,5 @@ best_model_weights/MineROI-NET/seq_60_cv2.pth
 best_model_weights/MineROI-NET/seq_60_cv3.pth
 best_model_weights/MineROI-NET/seq_30_final_test.pth
 best_model_weights/MineROI-NET/seq_60_final_test.pth
-
+HF_APP/
+HF_APP-old/

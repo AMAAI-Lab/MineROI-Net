@@ -212,13 +212,15 @@ def combine_datasets(SEQ_LEN=30):
             all_samples.append(data["samples"])
             all_labels.append(data["labels"])
             all_dates.append(torch.tensor(data["last_dates"]))
-            all_machines.append(torch.tensor([hash(m) for m in data["machines"]]))
+            all_machines.append(data["machines"])
+            # all_machines.append(torch.tensor([hash(m) for m in data["machines"]]))
         
         combined = {
             "samples": torch.cat(all_samples, dim=0),
             "labels": torch.cat(all_labels, dim=0),
             "last_dates": torch.cat(all_dates, dim=0),
-            "machines": torch.cat(all_machines, dim=0)
+            "machines": np.concatenate(all_machines)
+            # "machines": torch.cat(all_machines, dim=0)
         }
         print(f"{split} combined → {combined['samples'].shape[0]} samples")
         return combined
