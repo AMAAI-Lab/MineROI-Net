@@ -136,6 +136,8 @@ class ChannelMixing(nn.Module):
         out = identity * x_weighted.unsqueeze(1)
         return out
 
+
+
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, max_len=5000, dropout=0.1):
         super().__init__()
