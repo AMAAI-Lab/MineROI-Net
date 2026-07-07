@@ -1,4 +1,4 @@
-import dataloader
+# import dataloader_60
 import os
 import numpy as np
 import torch
@@ -21,13 +21,13 @@ from sklearn.preprocessing import label_binarize
 # =======================
 
 SEQ_LEN = 30
-dataloader.run_all_preprocessing(SEQ_LEN)
+# dataloader.run_all_preprocessing(SEQ_LEN)
 
 
 # =======================
 # Set Seed for Reproducibility
 # =======================
-def set_seed(seed=42):
+def set_seed(seed=32):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -41,8 +41,8 @@ def set_seed(seed=42):
 # =====================================================================
 # Config
 # =====================================================================
-SAVE_DIR = f"/root/Mine_ROI_Net/country_wise_data/seq_{SEQ_LEN}"
-OUT_DIR = f"/root/Mine_ROI_Net/checkpoints/Mine_ROI_Net/seq_{SEQ_LEN}"
+SAVE_DIR = f"/root/Mine_ROI_Net/version_2/data_collection/seq_combined_{SEQ_LEN}"
+OUT_DIR = f"/root/Mine_ROI_Net/version_2/seeds/MineROI-NET/seq_{SEQ_LEN}_outputs_NEW"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 NUM_CLASSES = 3
@@ -52,7 +52,9 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Load preprocessed train_trans.pt file
 # =====================================================================
 print("Loading preprocessed data...")
-train_dict = torch.load(os.path.join(SAVE_DIR, "train_trans.pt"))
+# train_dict = torch.load(os.path.join(SAVE_DIR, "train_trans.pt"))
+train_dict = torch.load(os.path.join(SAVE_DIR, "train_trans.pt"), weights_only=False)
+
 train_seqs = train_dict["samples"].numpy()
 train_labels = train_dict["labels"].numpy()
 print("\nTrain class distribution:")
@@ -60,12 +62,13 @@ print(pd.Series(train_labels).value_counts())
 
 
 
+
+
+
 # =====================================================================
 # Load test_trans.pt 
 # =====================================================================
-TEST_FILE = "test_trans.pt"  
-test_path = os.path.join(SAVE_DIR, TEST_FILE)
-test_dict = torch.load(test_path)
+test_dict  = torch.load(os.path.join(SAVE_DIR, "test_trans.pt"),  weights_only=False)
 
 test_seqs = test_dict["samples"].numpy()
 test_labels = test_dict["labels"].numpy()
@@ -73,6 +76,22 @@ print("Test class distribution:")
 print(pd.Series(test_labels).value_counts())
 
 
+
+
+# =====================================================================
+
+
+train_machines = set(train_dict["machines"])
+test_machines  = set(test_dict["machines"])
+
+# machines only in test
+test_only_machines = sorted(test_machines - train_machines)
+
+print("Machines only in TEST:")
+for m in test_only_machines:
+    print(m)
+
+print("\nCount:", len(test_only_machines))
 
 # =====================================================================
 # Dataset Class
@@ -104,22 +123,28 @@ class_weights = torch.tensor(class_weights, dtype=torch.float).to(DEVICE)
 print("Class weights:", class_weights)
 
 
-# =====================================================================
-# Mine_ROI_Net Model 
-# =====================================================================
+
+
+
 class SpectralFeatureExtractor(nn.Module):
-    def __init__(self, num_features):
+    def __init__(self, num_features, seq_len):
         super().__init__()
-        self.complex_weight = nn.Parameter(torch.randn(num_features, 2, dtype=torch.float32) * 0.02)
-        
+        self.K = seq_len // 2 + 1
+        # one complex weight per (feature, frequency-bin)
+        self.complex_weight = nn.Parameter(
+            torch.randn(num_features, self.K, 2, dtype=torch.float32) * 0.02
+        )
+
     def forward(self, x):
+        # x: [B, L, C]
         B, L, C = x.shape
-        x = x.transpose(1, 2)
-        x_fft = torch.fft.rfft(x, dim=2, norm='ortho')
-        weight = torch.view_as_complex(self.complex_weight)
-        x_weighted = x_fft * weight.unsqueeze(0).unsqueeze(-1)
+        x = x.transpose(1, 2)                       # [B, C, L]
+        x_fft = torch.fft.rfft(x, dim=2, norm='ortho')  # [B, C, K]
+        W = torch.view_as_complex(self.complex_weight)  # [C, K]
+        x_weighted = x_fft * W.unsqueeze(0)             # [B, C, K]
         x_out = torch.fft.irfft(x_weighted, n=L, dim=2, norm='ortho')
         return x_out.transpose(1, 2)
+
 
 
 class ChannelMixing(nn.Module):
@@ -135,8 +160,6 @@ class ChannelMixing(nn.Module):
         x_weighted = self.fc2(self.act(self.fc1(x_pooled)))
         out = identity * x_weighted.unsqueeze(1)
         return out
-
-
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, max_len=5000, dropout=0.1):
@@ -164,7 +187,9 @@ class HybridTransformerModel(nn.Module):
                  dim_feedforward=256, dropout=0.3, num_classes=3):
         super(HybridTransformerModel, self).__init__()
         
-        self.spectral = SpectralFeatureExtractor(input_dim)
+        # self.spectral = SpectralFeatureExtractor(input_dim)
+        self.spectral = SpectralFeatureExtractor(input_dim, seq_len=SEQ_LEN)
+
         self.channel_mix = ChannelMixing(input_dim)
         self.input_projection = nn.Linear(input_dim, d_model) if input_dim != d_model else nn.Identity()
         self.pos_encoder = PositionalEncoding(d_model, max_len=SEQ_LEN,  dropout=dropout)
@@ -286,30 +311,35 @@ def plot_roc_curve(y_true, y_probs, class_names, out_png):
 # =====================================================================
 # Hyperparameter Grid
 # =====================================================================
+
+
 param_grids = {
     30: {
         'batch_size': [64],
-        'lr': [0.0001],
+        'lr': [0.001],
         'd_model': [64],
-        'nhead': [2],
-        'num_layers': [2],
+        'nhead': [4],
+        'num_layers': [4],
         'dim_feedforward': [256],
-        'dropout': [0.2],
+        'dropout': [0.3],
         'wd': [0.00001],
         'epochs': [20]
     },
     60: {
         'batch_size': [64],
-        'lr': [0.0001],
-        'd_model': [64],           
-        'nhead': [4],                 
+        'lr': [0.001],
+        'd_model': [64],
+        'nhead': [2],
         'num_layers': [2],
-        'dim_feedforward': [256], 
+        'dim_feedforward': [128],
         'dropout': [0.2],
         'wd': [0.00001],
         'epochs': [20]
     }
-}
+} 
+
+
+
 
 param_grid = param_grids[SEQ_LEN]
 
@@ -321,8 +351,8 @@ print(f"\nTotal experiments for SEQ_LEN={SEQ_LEN}: {len(combinations)}\n")
 # =====================================================================
 # Run Experiments
 # =====================================================================
-# SEEDS = [42,1234,60,321,10,500] 
-SEEDS = [42] 
+# SEEDS = [42,1234,60,321,10,500,52,123,50] 
+SEEDS = [32] 
 
 
 results = []
@@ -332,9 +362,10 @@ for SEED in SEEDS:
     print(f"### RUNNING WITH SEED: {SEED} ###")
     print(f"{'#'*80}\n")
     
-    set_seed(SEED)  
+    # set_seed(SEED)  
     
     for idx, params in enumerate(combinations):
+        set_seed(SEED)
         print(f"\n{'='*70}")
         print(f"Seed {SEED} | Experiment {idx+1}/{len(combinations)}")
         print(f"Parameters: {params}")
@@ -348,10 +379,10 @@ for SEED in SEEDS:
         run_name = f"seed{SEED}_exp{idx+1}_d{params['d_model']}_h{params['nhead']}_l{params['num_layers']}_lr{params['lr']}_bs{params['batch_size']}_drop{params['dropout']}_feed{params['dim_feedforward']}"
 
         wandb.init(
-            project=f"transformer_{SEQ_LEN}_reproduce_seed",
+            project=f"mineroinet_{SEQ_LEN}_seeds",
             config={**params, "weight_decay": WEIGHT_DECAY, "num_classes": NUM_CLASSES},
             name=run_name,
-            dir= f"./{SEQ_LEN}_reproduce_seed",  
+            dir= f"./{SEQ_LEN}",  
             reinit=True
         )
 
@@ -437,6 +468,25 @@ for SEED in SEEDS:
         # Final Evaluation
         # =========================
         yt, pt, probs_t, test_loss = evaluate_model(model, test_loader, DEVICE)
+
+
+        last_dates_ns = test_dict["last_dates"]          # int64 nanoseconds
+        machines = test_dict["machines"]                # array of machine_name strings
+
+        pred_df = pd.DataFrame({
+            "machine_name": machines,
+            "date": pd.to_datetime(last_dates_ns, unit="ns"),
+            "y_true": yt,
+            "y_pred": pt,
+            "p0": probs_t[:, 0],
+            "p1": probs_t[:, 1],
+            "p2": probs_t[:, 2],
+        })
+
+        pred_df.to_csv(os.path.join(OUT_DIR, f"{run_name}_test_predictions_with_meta.csv"), index=False)
+        print(pred_df.head())
+
+
     
         test_acc_final = accuracy_score(yt, pt)
         test_f1_final  = f1_score(yt, pt, average='macro')
