@@ -20,7 +20,7 @@ from sklearn.preprocessing import label_binarize
 # Run the preprocessing dataloader to prepare data
 # =======================
 
-SEQ_LEN = 30
+SEQ_LEN = 60
 # dataloader.run_all_preprocessing(SEQ_LEN)
 
 
@@ -42,7 +42,7 @@ def set_seed(seed=32):
 # Config
 # =====================================================================
 SAVE_DIR = f"/root/Mine_ROI_Net/version_2/data_collection/seq_combined_{SEQ_LEN}"
-OUT_DIR = f"/root/Mine_ROI_Net/version_2/seeds/MineROI-NET/seq_{SEQ_LEN}_outputs_NEW"
+OUT_DIR = f"/root/Mine_ROI_Net/version_2/0_new/MineROI-NET/seq_{SEQ_LEN}_outputs"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 NUM_CLASSES = 3
@@ -379,7 +379,7 @@ for SEED in SEEDS:
         run_name = f"seed{SEED}_exp{idx+1}_d{params['d_model']}_h{params['nhead']}_l{params['num_layers']}_lr{params['lr']}_bs{params['batch_size']}_drop{params['dropout']}_feed{params['dim_feedforward']}"
 
         wandb.init(
-            project=f"mineroinet_{SEQ_LEN}_seeds",
+            project=f"mineroinet_{SEQ_LEN}_0_new",
             config={**params, "weight_decay": WEIGHT_DECAY, "num_classes": NUM_CLASSES},
             name=run_name,
             dir= f"./{SEQ_LEN}",  

@@ -154,7 +154,7 @@ def _build_windows(df: pd.DataFrame, seq_len: int, target_col: str, feature_cols
 ################################################ prepare_datasets ################################################
 
 def prepare_datasets(
-    SEQ_LEN: int = 60,
+    SEQ_LEN: int = 30,
     scaler_mode: str = "global",      # "global" or "per_scenario"
     val_equals_test: bool = True      # keep your convenience behavior by default
 ):
@@ -171,7 +171,7 @@ def prepare_datasets(
     """
 
     BASE_FINAL_DIR = "/root/Mine_ROI_Net/version_2/data_collection/final"
-    BASE_SEQ_DIR   = "/root/Mine_ROI_Net/version_2/data_collection/seq_60"
+    BASE_SEQ_DIR   = "/root/Mine_ROI_Net/version_2/data_collection/seq_30"
     os.makedirs(BASE_SEQ_DIR, exist_ok=True)
 
     assert scaler_mode in {"global", "per_scenario"}, "scaler_mode must be 'global' or 'per_scenario'"
@@ -388,12 +388,12 @@ def prepare_datasets(
 
 ################################################ combine_datasets ################################################
 
-def combine_datasets(SEQ_LEN=60):
+def combine_datasets(SEQ_LEN=30):
     """
     Combine multiple scenario preprocessed datasets into one unified dataset.
     """
 
-    BASE_SEQ_DIR = "/root/Mine_ROI_Net/version_2/data_collection/seq_60"
+    BASE_SEQ_DIR = "/root/Mine_ROI_Net/version_2/data_collection/seq_30"
     SAVE_DIR = f"/root/Mine_ROI_Net/version_2/data_collection/seq_combined_{SEQ_LEN}"
     os.makedirs(SAVE_DIR, exist_ok=True)
 
@@ -479,7 +479,7 @@ def combine_datasets(SEQ_LEN=60):
 
 ################################################ convert_to_trans_format ################################################
 
-def convert_to_trans_format(SEQ_LEN=60):
+def convert_to_trans_format(SEQ_LEN=30):
     """
     Convert [B, C, L] -> [B, L, C] for Transformer/LSTM style input.
     """
@@ -517,7 +517,7 @@ def convert_to_trans_format(SEQ_LEN=60):
 ################################################ run all ################################################
 
 def run_all_preprocessing(
-    SEQ_LEN=60,
+    SEQ_LEN=30,
     scaler_mode="global",   # "global" recommended for one combined model
     val_equals_test=True    # keep your current behavior
 ):
@@ -545,7 +545,7 @@ def run_all_preprocessing(
 
 if __name__ == "__main__":
     run_all_preprocessing(
-        SEQ_LEN=60,
+        SEQ_LEN=30,
         scaler_mode="global",   # change to "per_scenario" if needed
         val_equals_test=True
     )
