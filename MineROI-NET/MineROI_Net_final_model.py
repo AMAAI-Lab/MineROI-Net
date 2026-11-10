@@ -27,7 +27,7 @@ SEQ_LEN = 60
 # =======================
 # Set Seed for Reproducibility
 # =======================
-def set_seed(seed=32):
+def set_seed(seed=42):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -42,7 +42,7 @@ def set_seed(seed=32):
 # Config
 # =====================================================================
 SAVE_DIR = f"/root/Mine_ROI_Net/version_2/data_collection/seq_combined_{SEQ_LEN}"
-OUT_DIR = f"/root/Mine_ROI_Net/version_2/0_new/MineROI-NET/seq_{SEQ_LEN}_outputs"
+OUT_DIR = f"/root/Mine_ROI_Net/version_2/reproducing/MineROI-NET/{SEQ_LEN}"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 NUM_CLASSES = 3
@@ -121,8 +121,6 @@ class_weights = compute_class_weight(
 )
 class_weights = torch.tensor(class_weights, dtype=torch.float).to(DEVICE)
 print("Class weights:", class_weights)
-
-
 
 
 
@@ -308,9 +306,6 @@ def plot_roc_curve(y_true, y_probs, class_names, out_png):
     plt.close(fig)
 
     
-# =====================================================================
-# Hyperparameter Grid
-# =====================================================================
 
 
 param_grids = {
@@ -318,9 +313,9 @@ param_grids = {
         'batch_size': [64],
         'lr': [0.001],
         'd_model': [64],
-        'nhead': [4],
+        'nhead': [8],
         'num_layers': [4],
-        'dim_feedforward': [256],
+        'dim_feedforward': [128],
         'dropout': [0.3],
         'wd': [0.00001],
         'epochs': [20]
@@ -329,17 +324,14 @@ param_grids = {
         'batch_size': [64],
         'lr': [0.001],
         'd_model': [64],
-        'nhead': [2],
-        'num_layers': [2],
+        'nhead': [8],
+        'num_layers': [4],
         'dim_feedforward': [128],
-        'dropout': [0.2],
+        'dropout': [0.1],
         'wd': [0.00001],
         'epochs': [20]
     }
 } 
-
-
-
 
 param_grid = param_grids[SEQ_LEN]
 
@@ -351,8 +343,8 @@ print(f"\nTotal experiments for SEQ_LEN={SEQ_LEN}: {len(combinations)}\n")
 # =====================================================================
 # Run Experiments
 # =====================================================================
-# SEEDS = [42,1234,60,321,10,500,52,123,50] 
-SEEDS = [32] 
+
+SEEDS = [42] 
 
 
 results = []
@@ -379,10 +371,10 @@ for SEED in SEEDS:
         run_name = f"seed{SEED}_exp{idx+1}_d{params['d_model']}_h{params['nhead']}_l{params['num_layers']}_lr{params['lr']}_bs{params['batch_size']}_drop{params['dropout']}_feed{params['dim_feedforward']}"
 
         wandb.init(
-            project=f"mineroinet_{SEQ_LEN}_0_new",
+            project=f"mineroinet_{SEQ_LEN}_oct",
             config={**params, "weight_decay": WEIGHT_DECAY, "num_classes": NUM_CLASSES},
             name=run_name,
-            dir= f"./{SEQ_LEN}",  
+            dir= f"./{SEQ_LEN}_Mine_ROI_NET",  
             reinit=True
         )
 
